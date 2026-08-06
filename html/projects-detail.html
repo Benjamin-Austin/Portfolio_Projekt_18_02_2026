@@ -64,7 +64,7 @@
                   </ul>
                 </div>
                 <div>
-                  <a class="fs-8 text-dark fw-bold" href="mailto:info@wrappixel.com">info@wrappixel.com</a>
+                  <a class="fs-8 text-dark fw-bold" href="contact.html">Contact</a>
                 </div>
               </div>
             </ul>
@@ -79,28 +79,27 @@
 
     <!--  Banner Section -->
     <section class="banner-section banner-inner-section position-relative overflow-hidden d-flex align-items-end"
-      style="background-image: url(../assets/images/backgrounds/projects-detail-banner.jpg);">
+      style="background-image: url(../assets/images/portfolio/eu-27-correlations-italy-plot.png);">
       <div class="container">
         <div class="d-flex flex-column gap-4 pb-5 pb-xl-10 position-relative z-1">
-          <div class="row align-items-center">
-            <div class="col-xl-4">
-              <div class="d-flex align-items-center gap-4" data-aos="fade-up" data-aos-delay="100"
-                data-aos-duration="1000">
-                <img src="../assets/images/svgs/primary-leaf.svg" alt="" class="img-fluid animate-spin">
-                <p class="mb-0 text-white fs-5 text-opacity-70">A <span class="text-primary">showcase of
-                    creativity</span>, strategy, and results explore the projects that define us.</p>
+            <div class="row align-items-center">
+              <div class="col-xl-4">
+                <div class="d-flex align-items-center gap-4" data-aos="fade-up" data-aos-delay="100"
+                  data-aos-duration="1000">
+                  <img src="../assets/images/svgs/primary-leaf.svg" alt="" class="img-fluid animate-spin">
+                  <p class="mb-0 text-white fs-5 text-opacity-70">Education, GDP, and Unemployment: A Cross-Country Analysis of the EU</p>
+                </div>
               </div>
             </div>
+            <div class="d-flex align-items-end gap-3" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+              <h1 class="mb-0 fs-16 text-white lh-1">EU-27 Analysis</h1>
+              <a href="javascript:void(0)" class="p-1 ps-7 bg-primary rounded-pill">
+                <span class="bg-white round-52 rounded-circle d-flex align-items-center justify-content-center">
+                  <iconify-icon icon="lucide:arrow-up-right" class="fs-8 text-dark"></iconify-icon>
+                </span>
+              </a>
+            </div>
           </div>
-          <div class="d-flex align-items-end gap-3" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-            <h1 class="mb-0 fs-16 text-white lh-1">BioTrack LIMS</h1>
-            <a href="javascript:void(0)" class="p-1 ps-7 bg-primary rounded-pill">
-              <span class="bg-white round-52 rounded-circle d-flex align-items-center justify-content-center">
-                <iconify-icon icon="lucide:arrow-up-right" class="fs-8 text-dark"></iconify-icon>
-              </span>
-            </a>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -118,20 +117,20 @@
             <div class="d-md-flex align-items-center gap-4 gap-lg-8" data-aos="fade-up" data-aos-delay="200"
               data-aos-duration="1000">
               <div class="d-flex flex-column gap-2 py-2 pe-4 pe-lg-8 border-end">
-                <p class="mb-0">Scope of work</p>
-                <p class="mb-0 text-dark fs-5 fw-medium">Brand identity, Digital design</p>
+                <p class="mb-0">Focus</p>
+                <p class="mb-0 text-dark fs-5 fw-medium">Education, GDP, unemployment</p>
               </div>
               <div class="d-flex flex-column gap-2 py-2 pe-4 pe-lg-8 border-end">
-                <p class="mb-0">Industry</p>
-                <p class="mb-0 text-dark fs-5 fw-medium">Bags</p>
+                <p class="mb-0">Source</p>
+                <p class="mb-0 text-dark fs-5 fw-medium">Eurostat CSV exports</p>
               </div>
               <div class="d-flex flex-column gap-2 py-2 pe-4 pe-lg-8 border-end">
-                <p class="mb-0">Raised</p>
-                <p class="mb-0 text-dark fs-5 fw-medium">$1.1M</p>
+                <p class="mb-0">Scope</p>
+                <p class="mb-0 text-dark fs-5 fw-medium">27 EU countries, 2015-2024</p>
               </div>
               <div class="d-flex flex-column gap-2 py-2">
-                <p class="mb-0">Website</p>
-                <p class="mb-0 text-dark fs-5 fw-medium">www.studiova.com</p>
+                <p class="mb-0">Tools</p>
+                <p class="mb-0 text-dark fs-5 fw-medium">Python, pandas, SciPy, seaborn</p>
               </div>
             </div>
           </div>
@@ -142,34 +141,69 @@
             </div>
             <div class="col-lg-8">
               <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                <h4>Motivation</h4>
                 <p class="fs-5 mb-6">
-                  exploring the world of handbags reveals a diverse array of blogs catering to various styles, trends,
-                  and fashion insights. Here are some notable handbag blogs you might find engaging:
+                  I started this project because I was curious if I can find relationships between education, income, and
+                  unemployment in EU data. I wanted to see if the data supports the common assumption that higher education 
+                  leads to higher income and lower unemployment.
                 </p>
-                <h4>1. PurseBlog</h4>
+                <h4>What I did</h4>
                 <p class="fs-5 mb-6">
-                  PurseBlog offers daily editorial content focusing on designer handbag news, reviews, and features.
-                  They cover the latest collections from both luxury and contemporary designers, providing readers with
-                  in-depth analyses and insights into the handbag industry.
+                  I used Eurostat data to compare the share of 25-34 year olds with tertiary education, GDP per capita,
+                  and unemployment across the 27 EU countries.
                 </p>
-                <h4>2. The MyBag Blog</h4>
+                
+                <p class="fs-5 mb-6">
+                  I imported the three CSV files into Python, cleaned the column names, filtered the data down to the 27
+                  EU countries, and merged everything by country and year. That gave me 270 complete data points for
+                  2015-2024 with no missing values after the merge.
+                </p>
+                <p class="fs-5 mb-6">
+                  From there I checked basic summaries and then calculated Pearson correlations country by country to
+                  see how strong the relationships were over time.
+                </p>
+                <h4>Tools &amp; skills used</h4>
+                <p class="fs-5 mb-6">
+                  Python, pandas, NumPy, SciPy, matplotlib, seaborn, and linear regression. On the data side I worked
+                  with Eurostat CSV exports and a merged country-year table.
+                </p>
+                <h4>Challenges &amp; mistakes</h4>
+                <p class="fs-5 mb-6">
+                  The main limitation is that correlation is not causation. A strong relationship does not prove that
+                  education causes higher GDP or lower unemployment. I would also improve the visual story next time by
+                  creating more than one clean chart from the final dataset instead of relying on a single plot.
+                </p>
+                <h4>Result &amp; reflection</h4>
                 <p class="fs-5 mb-0">
-                  The MyBag Blog is a hub for designer handbag inspiration, trends, and style guides. Packed with the
-                  latest trends, blogger styles, and, of course, handbags, it serves as a valuable resource for fashion
-                  enthusiasts seeking to stay updated on current styles.
+                  The pattern was still interesting: Luxembourg was consistently the GDP per capita outlier, Greece had
+                  the highest unemployment from 2015 to 2020, and Spain from 2021 to 2024. For me, the biggest takeaway
+                  was that the data supports a meaningful relationship, but it also forces you to stay honest about the
+                  limits of what the numbers can actually prove.
                 </p>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12 mb-7" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-              <img src="../assets/images/portfolio/portfolio-img-4.jpg" alt="services" class="w-100 object-fit-cover">
+              <img src="../assets/images/portfolio/eu-27-correlations-italy-plot.png" alt="EU-27 correlations plot" class="w-100 object-fit-cover">
             </div>
             <div class="col-lg-6 mb-7" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-              <img src="../assets/images/portfolio/portfolio-img-2.jpg" alt="services" class="w-100 object-fit-cover">
+              <div class="h-100 p-4 p-lg-6 bg-light rounded-4">
+                <p class="mb-3 text-dark fw-medium">Quick notes</p>
+                <p class="fs-5 mb-0">
+                  27 countries, 10 years, 3 indicators. The merged dataset stayed clean, which made the analysis more
+                  trustworthy and the later correlation checks easier to read.
+                </p>
+              </div>
             </div>
             <div class="col-lg-6 mb-7" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-              <img src="../assets/images/portfolio/portfolio-img-3.jpg" alt="services" class="w-100 object-fit-cover">
+              <div class="h-100 p-4 p-lg-6 bg-light rounded-4">
+                <p class="mb-3 text-dark fw-medium">One honest takeaway</p>
+                <p class="fs-5 mb-0">
+                  If I did this again, I would add one or two more targeted charts for the weaker countries too, not
+                  just the patterns that look strongest at first glance.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -185,14 +219,13 @@
           <div class="d-flex flex-column gap-8 pe-xl-5">
             <h2 class="mb-0 text-white">Build something together?</h2>
             <div class="d-flex flex-column gap-2">
-              <a href="https://www.wrappixel.com/" target="_blank" class="link-hover hstack gap-3 text-white fs-5">
+              <a href="contact.html" class="link-hover hstack gap-3 text-white fs-5">
                 <iconify-icon icon="lucide:arrow-up-right" class="fs-7 text-primary"></iconify-icon>
-                info@wrappixel.com
+                Contact me
               </a>
-              <a href="https://maps.app.goo.gl/hpDp81fqzGt5y4bC8" target="_blank"
-                class="link-hover hstack gap-3 text-white fs-5">
+              <a href="projects.html" class="link-hover hstack gap-3 text-white fs-5">
                 <iconify-icon icon="lucide:map-pin" class="fs-7 text-primary"></iconify-icon>
-                info@wrappixel.com
+                View more work
               </a>
             </div>
           </div>
@@ -216,11 +249,11 @@
           </ul>
         </div>
         <div class="col-md-4 col-xl-3 mb-8 mb-xl-0">
-          <p class="mb-0 text-white text-opacity-70 text-md-end">© Studiova copyright 2025</p>
+          <p class="mb-0 text-white text-opacity-70 text-md-end">© Benjamin Austin 2026</p>
         </div>
       </div>
     </div>
-  <p class="mb-0 text-white text-opacity-70 text-md-center mt-10">Distributed by <a class="text-white" href="https://www.themewagon.com" target="_blank">ThemeWagon</a></p>
+  <p class="mb-0 text-white text-opacity-70 text-md-center mt-10">Built as part of my portfolio site.</p>
   </footer>
 
   <div class="get-template hstack gap-2">
