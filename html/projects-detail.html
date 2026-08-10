@@ -839,11 +839,11 @@ plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-6.png" alt="Hungary education and GDP over time" class="img-fluid">
 
-              <h2>Hypothesis 2:</h2>
+              <h2>Hypothesis 2</h2>
 
               <p class="fs-5 mb-6"><strong>Hypothesis 2:</strong> EU countries with a higher education rate have a lower unemployment rate.</p>
-              <p class="fs-5 mb-6">We investigate whether there is a relationship between the share of university graduates and the unemployment rate in EU countries.</p>
-
+              <p class="fs-5 mb-6">First we will compare the countries against each other for the Year 2024 to get a broad overview of the Data. After that we will analyze the trends over time for each country separately and see if we can find any significant relationships between higher education and unemployment rate.</p>
+              <h3>Cross-Country Comparison EU-27 (2024)</h3>
                 <pre><code><strong># Filter df to significant countries</strong>
 significant_countries = significant_h1['country'].unique()
 df_sig = df[df['country'].isin(significant_countries)]
@@ -883,7 +883,7 @@ plt.show()</code></pre>
               <div class="text-center">
               <img src="../assets/images/portfolio/notebook-analysis/plot-7.png" alt="Scatter plot of unemployment versus education rate for significant countries" class="img-fluid mx-auto d-block">
               </div>
-
+              <p class="fs-5 mb-6"><strong>Spain seems to be an outlier with a relatively high Unemployment rate compared to their education rate.</strong></p>
               <h3>Check for outliers</h3>
 
               <pre><code><strong># Interquartile Range (IQR) method for outlier detection in the education rate</strong>
@@ -948,7 +948,7 @@ Empty DataFrame
 Columns: [country, unemployment_rate]
 Index: []</pre>
 
-              <p class="fs-5 mb-6"><strong>Spain stands out as an outlier with respect to unemployment rate.</strong></p>
+              <p class="fs-5 mb-6"><strong> Spain stands out as an outlier with respect to unemployment rate and will be removed for the following comparison plot.</strong></p>
 
               <pre><code>eu_ohn_span = [
     "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland",
@@ -957,7 +957,7 @@ Index: []</pre>
 ]
 
 df_latest = df_latest[df_latest['country'].isin(eu_ohn_span)]</code></pre>
-
+              <h3> Cross-Country Comparison (2024) without outliers</h3>
               <pre><code><strong># Scatter plot with linear regression line, without Spain</strong>
 plt.figure(figsize=(6,4))
 sns.regplot(data=df_latest, x='education_rate', y='unemployment_rate', ci=None, scatter_kws={'alpha':0.7}, line_kws={'color':'red'})
@@ -977,15 +977,16 @@ plt.grid(True)
 plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-13.png" alt="Scatter plot of unemployment versus education rate across EU countries without Spain" class="img-fluid">
-
+              <h3>Results Cross-Country Comparison</h3>
               <pre><code><strong># Correlation for the latest year (across countries, not within a country over time)</strong>
 r_edu_unemp = df_latest['education_rate'].corr(df_latest['unemployment_rate'])
 print(f"Pearson correlation education vs. unemployment: {r_edu_unemp:.2f}")</code></pre>
 
               <pre>Pearson correlation education vs. unemployment: 0.11</pre>
 
-              <p class="fs-5 mb-6"><strong>There appears to be no correlation: the points are fairly scattered and the regression line is nearly horizontal, with a Pearson correlation of only 0.11. This suggests the education rate has no strong cross-country effect on the unemployment rate in a given year. To dig deeper, we calculate the correlation coefficients for each country individually over time.</strong></p>
 
+              <p class="fs-5 mb-6"><strong>There appears to be no correlation: the points are fairly scattered and the regression line is nearly horizontal, with a Pearson correlation of only 0.11. This suggests the education rate has no strong cross-country effect on the unemployment rate in a given year. To dig deeper, we calculate the correlation coefficients for each country individually over time.</strong></p>
+              <h2>Trend Analysis & Correlation</h2>
               <pre><code><strong># Calculate the correlation between education rate and unemployment for each country over time</strong>
 results = []
 for country in df['country'].unique():
@@ -1130,7 +1131,7 @@ plt.show()</code></pre>
 
               <h3>Answering Hypothesis 2</h3>
               <p class="fs-5 mb-6">In 14 of 27 EU countries (52%), there is a statistically significant correlation between education rate and unemployment rate (p &lt; 0.05). However, this relationship is less consistent than for Hypothesis 1 (78%). The hypothesis is confirmed only partially: the relationship exists, but it is weaker and less uniform than for the other hypotheses.</p>
-
+              <h3>Example 1: Country with a strong negative correlation</h3>
               <pre><code>import matplotlib.pyplot as plt
 
 <strong># Filter the data for Italy</strong>
@@ -1172,8 +1173,8 @@ print(f"Italy - Correlation (r): {r:.2f}, p-value: {p:.6f}")</code></pre>
               <p class="fs-5 mb-6">Italy - Correlation (r): -0.98, p-value: 0.000001</p>
 
               <p class="fs-5 mb-6">Italy shows the strongest negative correlation (r = -0.98, p = 0.000001), which indicates that in Italy a higher share of university graduates is associated with a lower unemployment rate.</p>
-
-              <h3>Country without significant correlation:</h3>
+                
+              <h3>Example 2: Country without significant correlation:</h3>
 
               <pre><code><strong># Filter the data for Estonia</strong>
 data = df[df['country'] == 'Estonia']
@@ -1209,8 +1210,8 @@ print(f"Estonia - Correlation (r): {r:.2f}, p-value: {p:.6f}")</code></pre>
 
               <p class="fs-5 mb-6">In Estonia there is no discernible relationship between education rate and unemployment rate (r = -0.02, p = 0.95).</p>
 
-              <h2>Hypothesis 3:</h2>
-              <h3>GDP per capita vs. unemployment rate</h3>
+              <h2>Hypothesis 3</h2>
+
               <p class="fs-5 mb-6"><strong>Hypothesis 3:</strong> Do countries with a higher GDP per capita have a lower unemployment rate?</p>
               <p class="fs-5 mb-6">We investigate whether there is a relationship between GDP per capita and the unemployment rate in EU countries.</p>
 
@@ -1236,40 +1237,59 @@ df_corr_h3 = pd.DataFrame(results_h3)
 <strong># Sort by correlation strength</strong>
 df_corr_h3_sorted = df_corr_h3.sort_values('correlation', ascending=False)
 
+<strong># Reset index so it starts at 1 instead of the original row numbers</strong>
+df_corr_h3_sorted = df_corr_h3_sorted.reset_index(drop=True)
+df_corr_h3_sorted.index = df_corr_h3_sorted.index + 1
+
 print(df_corr_h3_sorted)</code></pre>
 
-              <pre>        country  correlation   p_value
-24       Sweden     0.532556  0.113009
-7       Estonia     0.148055  0.683136
-13      Hungary    -0.371537  0.290467
-17   Luxembourg    -0.378764  0.280437
-6       Denmark    -0.380718  0.277758
-16    Lithuania    -0.484718  0.155649
-10      Finland    -0.526478  0.117963
-26     Slovakia    -0.600009  0.066683
-5       Germany    -0.601055  0.066085
-22     Portugal    -0.632833  0.049557
-4       Czechia    -0.633705  0.049148
-23      Romania    -0.645236  0.043938
-0       Austria    -0.657322  0.038889
-1       Belgium    -0.677958  0.031200
-18       Latvia    -0.772185  0.008859
-12      Croatia    -0.781498  0.007588
-14      Ireland    -0.783730  0.007304
-21       Poland    -0.797047  0.005763
-9         Spain    -0.805112  0.004952
-20  Netherlands    -0.820480  0.003636
-25     Slovenia    -0.849981  0.001841
-2      Bulgaria    -0.855321  0.001604
-11       France    -0.861794  0.001346
-3        Cyprus    -0.864552  0.001246
-8        Greece    -0.879355  0.000799
-19        Malta    -0.881841  0.000738
-15        Italy    -0.929077  0.000102</pre>
-
-              <pre><code><strong># Split countries into significant (p < 0.05) and not significant</strong>
+<div class="table-responsive analysis-table-simple">
+                <table class="table table-sm mb-0">
+                  <thead>
+                    <tr><th></th><th>country</th><th>correlation</th><th>p_value</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th>1</th><td>Sweden</td><td>0.532556</td><td>0.113009</td></tr>
+                    <tr><th>2</th><td>Estonia</td><td>0.148055</td><td>0.683136</td></tr>
+                    <tr><th>3</th><td>Hungary</td><td>-0.371537</td><td>0.290467</td></tr>
+                    <tr><th>4</th><td>Luxembourg</td><td>-0.378764</td><td>0.280437</td></tr>
+                    <tr><th>5</th><td>Denmark</td><td>-0.380718</td><td>0.277758</td></tr>
+                    <tr><th>6</th><td>Lithuania</td><td>-0.484718</td><td>0.155649</td></tr>
+                    <tr><th>7</th><td>Finland</td><td>-0.526478</td><td>0.117963</td></tr>
+                    <tr><th>8</th><td>Slovakia</td><td>-0.600009</td><td>0.066683</td></tr>
+                    <tr><th>9</th><td>Germany</td><td>-0.601055</td><td>0.066085</td></tr>
+                    <tr><th>10</th><td>Portugal</td><td>-0.632833</td><td>0.049557</td></tr>
+                    <tr><th>11</th><td>Czechia</td><td>-0.633705</td><td>0.049148</td></tr>
+                    <tr><th>12</th><td>Romania</td><td>-0.645236</td><td>0.043938</td></tr>
+                    <tr><th>13</th><td>Austria</td><td>-0.657322</td><td>0.038889</td></tr>
+                    <tr><th>14</th><td>Belgium</td><td>-0.677958</td><td>0.031200</td></tr>
+                    <tr><th>15</th><td>Latvia</td><td>-0.772185</td><td>0.008859</td></tr>
+                    <tr><th>16</th><td>Croatia</td><td>-0.781498</td><td>0.007588</td></tr>
+                    <tr><th>17</th><td>Ireland</td><td>-0.783730</td><td>0.007304</td></tr>
+                    <tr><th>18</th><td>Poland</td><td>-0.797047</td><td>0.005763</td></tr>
+                    <tr><th>19</th><td>Spain</td><td>-0.805112</td><td>0.004952</td></tr>
+                    <tr><th>20</th><td>Netherlands</td><td>-0.820480</td><td>0.003636</td></tr>
+                    <tr><th>21</th><td>Slovenia</td><td>-0.849981</td><td>0.001841</td></tr>
+                    <tr><th>22</th><td>Bulgaria</td><td>-0.855321</td><td>0.001604</td></tr>
+                    <tr><th>23</th><td>France</td><td>-0.861794</td><td>0.001346</td></tr>
+                    <tr><th>24</th><td>Cyprus</td><td>-0.864552</td><td>0.001246</td></tr>
+                    <tr><th>25</th><td>Greece</td><td>-0.879355</td><td>0.000799</td></tr>
+                    <tr><th>26</th><td>Malta</td><td>-0.881841</td><td>0.000738</td></tr>
+                    <tr><th>27</th><td>Italy</td><td>-0.929077</td><td>0.000102</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              
+<pre><code><strong># Split countries into significant (p < 0.05) and not significant</strong>
 significant_h3 = df_corr_h3[df_corr_h3['p_value'] < 0.05].sort_values('correlation', ascending=False)
 not_significant_h3 = df_corr_h3[df_corr_h3['p_value'] >= 0.05].sort_values('correlation', ascending=False)
+
+<strong># Reset index so each group starts at 1</strong>
+significant_h3 = significant_h3.reset_index(drop=True)
+significant_h3.index = significant_h3.index + 1
+
+not_significant_h3 = not_significant_h3.reset_index(drop=True)
+not_significant_h3.index = not_significant_h3.index + 1
 
 print("Significant correlations (p < 0.05)")
 print(significant_h3)
@@ -1279,42 +1299,57 @@ print("Not significant correlations (p >= 0.05)")
 print(not_significant_h3)
 print(f"Number of countries without significant correlation: {len(not_significant_h3)}")</code></pre>
 
-              <pre>Significant correlations (p &lt; 0.05)
-        country  correlation   p_value
-22     Portugal    -0.632833  0.049557
-4       Czechia    -0.633705  0.049148
-23      Romania    -0.645236  0.043938
-0       Austria    -0.657322  0.038889
-1       Belgium    -0.677958  0.031200
-18       Latvia    -0.772185  0.008859
-12      Croatia    -0.781498  0.007588
-14      Ireland    -0.783730  0.007304
-21       Poland    -0.797047  0.005763
-9         Spain    -0.805112  0.004952
-20  Netherlands    -0.820480  0.003636
-25     Slovenia    -0.849981  0.001841
-2      Bulgaria    -0.855321  0.001604
-11       France    -0.861794  0.001346
-3        Cyprus    -0.864552  0.001246
-8        Greece    -0.879355  0.000799
-19        Malta    -0.881841  0.000738
-15        Italy    -0.929077  0.000102
+              <h3>Significant correlations (p &lt; 0.05)</h3>
+<div class="table-responsive analysis-table-simple">
+                <table class="table table-sm mb-0">
+                  <thead>
+                    <tr><th></th><th>country</th><th>correlation</th><th>p_value</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th>1</th><td>Portugal</td><td>-0.632833</td><td>0.049557</td></tr>
+                    <tr><th>2</th><td>Czechia</td><td>-0.633705</td><td>0.049148</td></tr>
+                    <tr><th>3</th><td>Romania</td><td>-0.645236</td><td>0.043938</td></tr>
+                    <tr><th>4</th><td>Austria</td><td>-0.657322</td><td>0.038889</td></tr>
+                    <tr><th>5</th><td>Belgium</td><td>-0.677958</td><td>0.031200</td></tr>
+                    <tr><th>6</th><td>Latvia</td><td>-0.772185</td><td>0.008859</td></tr>
+                    <tr><th>7</th><td>Croatia</td><td>-0.781498</td><td>0.007588</td></tr>
+                    <tr><th>8</th><td>Ireland</td><td>-0.783730</td><td>0.007304</td></tr>
+                    <tr><th>9</th><td>Poland</td><td>-0.797047</td><td>0.005763</td></tr>
+                    <tr><th>10</th><td>Spain</td><td>-0.805112</td><td>0.004952</td></tr>
+                    <tr><th>11</th><td>Netherlands</td><td>-0.820480</td><td>0.003636</td></tr>
+                    <tr><th>12</th><td>Slovenia</td><td>-0.849981</td><td>0.001841</td></tr>
+                    <tr><th>13</th><td>Bulgaria</td><td>-0.855321</td><td>0.001604</td></tr>
+                    <tr><th>14</th><td>France</td><td>-0.861794</td><td>0.001346</td></tr>
+                    <tr><th>15</th><td>Cyprus</td><td>-0.864552</td><td>0.001246</td></tr>
+                    <tr><th>16</th><td>Greece</td><td>-0.879355</td><td>0.000799</td></tr>
+                    <tr><th>17</th><td>Malta</td><td>-0.881841</td><td>0.000738</td></tr>
+                    <tr><th>18</th><td>Italy</td><td>-0.929077</td><td>0.000102</td></tr>
+                  </tbody>
+                </table>
+              </div>
 
-Number of countries with significant correlation: 18
 
-Not significant correlations (p &gt;= 0.05)
-       country  correlation   p_value
-24      Sweden     0.532556  0.113009
-7      Estonia     0.148055  0.683136
-13     Hungary    -0.371537  0.290467
-17  Luxembourg    -0.378764  0.280437
-6      Denmark    -0.380718  0.277758
-16   Lithuania    -0.484718  0.155649
-10     Finland    -0.526478  0.117963
-26    Slovakia    -0.600009  0.066683
-5      Germany    -0.601055  0.066085
 
-Number of countries without significant correlation: 9</pre>
+              <h3>Not significant correlations (p &gt;= 0.05)</h3>
+<div class="table-responsive analysis-table-simple">
+                <table class="table table-sm mb-0">
+                  <thead>
+                    <tr><th></th><th>country</th><th>correlation</th><th>p_value</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th>1</th><td>Sweden</td><td>0.532556</td><td>0.113009</td></tr>
+                    <tr><th>2</th><td>Estonia</td><td>0.148055</td><td>0.683136</td></tr>
+                    <tr><th>3</th><td>Hungary</td><td>-0.371537</td><td>0.290467</td></tr>
+                    <tr><th>4</th><td>Luxembourg</td><td>-0.378764</td><td>0.280437</td></tr>
+                    <tr><th>5</th><td>Denmark</td><td>-0.380718</td><td>0.277758</td></tr>
+                    <tr><th>6</th><td>Lithuania</td><td>-0.484718</td><td>0.155649</td></tr>
+                    <tr><th>7</th><td>Finland</td><td>-0.526478</td><td>0.117963</td></tr>
+                    <tr><th>8</th><td>Slovakia</td><td>-0.600009</td><td>0.066683</td></tr>
+                    <tr><th>9</th><td>Germany</td><td>-0.601055</td><td>0.066085</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
 
               <pre><code><strong># Visualization: bar chart of the correlations (sorted)</strong>
 plt.figure(figsize=(10, 8))
@@ -1333,9 +1368,9 @@ plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-9.png" alt="Bar chart of GDP versus unemployment correlations by country" class="img-fluid">
 
-              <h3>Interpretation:</h3>
+              <h3>Answering Hypothesis 3</h3>
               <p class="fs-5 mb-6">The hypothesis is confirmed for 66.6% of the countries examined (18 of 27). In these countries there is a significant negative relationship: as GDP per capita rises, the unemployment rate falls.</p>
-
+              <h3>Example 1: Country with a strong negative correlation</h3>
               <pre><code><strong># Example 1: Country with a strong negative correlation (high GDP → low unemployment)</strong>
 best_country = significant_h3.iloc[0]['country']
 data_best = df[df['country'] == best_country]
@@ -1365,7 +1400,7 @@ plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-10.png" alt="Portugal GDP and unemployment over time" class="img-fluid">
 
-              <h3>Country without significant correlation:</h3>
+              <h3>Example 2: Country without significant correlation</h3>
 
               <pre><code><strong># Example 2: Country without significant correlation</strong>
 weak_country = not_significant_h3.iloc[3]['country']
