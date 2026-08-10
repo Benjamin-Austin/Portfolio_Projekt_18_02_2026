@@ -437,6 +437,63 @@ th {
   border-width: 0;
 }
 
+.project-analysis .notebook-section h1,
+.project-analysis .notebook-section h2,
+.project-analysis .notebook-section h3,
+.project-analysis .notebook-section h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.description-content > *:first-child {
+  margin-top: 1.5rem;
+}
+
+.project-analysis .notebook-section > *:first-child {
+  margin-top: 0.5rem;
+}
+
+.project-analysis .notebook-section pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #F4F8FA;
+  border: 1px solid rgba(31, 42, 46, 0.12);
+  border-radius: 0.75rem;
+}
+
+.project-analysis .notebook-section pre code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.project-analysis .notebook-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem 0;
+}
+
+.project-analysis .analysis-table-simple {
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.project-analysis .analysis-table-simple table {
+  margin-bottom: 0;
+}
+
+.project-analysis .analysis-table-simple th,
+.project-analysis .analysis-table-simple td {
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .project-analysis .analysis-table-simple th,
+  .project-analysis .analysis-table-simple td {
+    white-space: normal;
+  }
+}
+
 label {
   display: inline-block;
 }
