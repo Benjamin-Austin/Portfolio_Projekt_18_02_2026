@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Benjamin Austin | Energy and Environmental Engineer</title>
+  <title>Benjamin Austin | Energy and Environmental Engineer | EU-27 Case Study</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.svg" />
   <link rel="stylesheet" href="../assets/libs/owl.carousel/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="../assets/libs/aos-master/dist/aos.css">
@@ -189,19 +189,36 @@
               </div>
             </div>
           </div>
-          
+
+          <div class="row gap-4 gap-lg-0">
+            <div class="col-lg-4">
+              <h2 class="fs-13 mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Quick Navigation</h2>
+            </div>
+            <div class="col-lg-8">
+              <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                <li><a href="#research-hypotheses" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Research Hypotheses</a></li>
+                <li><a href="#data-gathering" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Data Gathering</a></li>
+                <li><a href="#exploratory-analysis" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Exploratory Analysis</a></li>
+                <li><a href="#hypothesis-1" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Hypothesis 1</a></li>
+                <li><a href="#hypothesis-2" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Hypothesis 2</a></li>
+                <li><a href="#hypothesis-3" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Hypothesis 3</a></li>
+                <li><a href="#critical-assessment" class="badge text-bg-light border fs-6 fw-medium text-decoration-none">Critical Assessment</a></li>
+              </ul>
+            </div>
+          </div>
+
           <div class="row gap-4 gap-lg-0 align-items-start project-analysis">
             <div class="col-lg-4">
               <h2 class="fs-13 mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Full Analysis</h2>
             </div>
             <div class="col-lg-8 notebook-section" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-              <h2>Research Hypotheses</h2>
+              <h2 id="research-hypotheses">Research Hypotheses</h2>
               <p class="fs-5 mb-6"><strong>Hypothesis 1:</strong> EU countries with a higher share of university graduates (education rate) show a higher GDP per capita.</p>
               <p class="fs-5 mb-6"><strong>Hypothesis 2:</strong> EU countries with a higher education rate have a lower unemployment rate.</p>
               <p class="fs-5 mb-6"><strong>Hypothesis 3:</strong> EU countries with a higher GDP per capita have a lower unemployment rate.</p>
               <p class="fs-5 mb-6">All data comes from <strong>Eurostat</strong></p>
 
-              <h2>Data Gathering</h2>
+              <h2 id="data-gathering">Data Gathering</h2>
               <pre><code><strong># Import necessary libraries for data analysis and visualization</strong>
 import pandas as pd  # Data manipulation and analysis
 import numpy as np  # Numerical computing
@@ -277,11 +294,7 @@ eu_countries = [
     "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland",
     "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg",
     "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden"]</code></pre>
-                <pre><code><strong># Filter only EU countries</strong>
-df_ed = df_ed[df_ed['country'].isin(eu_countries)]
-df_gdp = df_gdp[df_gdp['country'].isin(eu_countries)]
-df_unemp = df_unemp[df_unemp['country'].isin(eu_countries)]
-print(df_ed['country'].describe()) #Check ob alle drin sind 27 brauchen wir</code></pre>
+
 
 <pre><code><strong># Filter the dataframes to include only EU countries</strong>
 df_ed = df_ed[df_ed['country'].isin(eu_countries)]
@@ -299,7 +312,7 @@ df = pd.merge(df_ed, df_gdp, on=['country','year'], how='inner')
 df = pd.merge(df, df_unemp, on=['country','year'], how='inner')</code></pre>
 
               <h2>Check Dataset for anomalies</h2>
-<pre><code>print(df.head(10)) #check wie es aussieht</code></pre>
+<pre><code>print(df.head(10)) #check what it looks like</code></pre>
 
               <div class="table-responsive analysis-table-simple">
                 <table class="table table-sm mb-0">
@@ -405,7 +418,7 @@ df = pd.merge(df, df_unemp, on=['country','year'], how='inner')</code></pre>
               </ul>
               <p class="fs-5 mb-6">After the merge, the data only contains country-year combinations for which all three indicators are available.</p>
 
-              <h2>Exploratory Analysis</h2>
+              <h2 id="exploratory-analysis">Exploratory Analysis</h2>
               <p class="fs-5 mb-6">The datasets have now been merged and cleaned and can be used for the exploratory analysis.</p>
 
               <h3>Yearly extremes</h3>
@@ -623,7 +636,7 @@ Coefficient of determination (R2): 0.18</pre>
 
               <p class="fs-5 mb-6"><strong>Removing Luxembourg and Ireland lowers the correlation from r=0.63 to r=0.42. This shows that Luxembourg's extreme GDP per capita was inflating the positive relationship between education rate and GDP. For the rest of the analysis, countries are no longer compared against each other cross-sectionally. Instead, each country is analyzed individually over time, so outliers are not removed anymore.</strong></p>
 
-              <h2>Hypothesis 1:</h2>
+              <h2 id="hypothesis-1">Hypothesis 1:</h2>
 
               <p class="fs-5 mb-6"><strong>Hypothesis 1:</strong> EU countries with a higher share of university graduates (education rate) show a higher GDP per capita.</p>              
               <p class="fs-5 mb-6">We now investigate whether there is a positive relationship between the education rate and economic performance (GDP per capita), analyzing each country individually over time.</p>
@@ -839,7 +852,7 @@ plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-6.png" alt="Hungary education and GDP over time" class="img-fluid">
 
-              <h2>Hypothesis 2</h2>
+              <h2 id="hypothesis-2">Hypothesis 2</h2>
 
               <p class="fs-5 mb-6"><strong>Hypothesis 2:</strong> EU countries with a higher education rate have a lower unemployment rate.</p>
               <p class="fs-5 mb-6">First we will compare the countries against each other for the Year 2024 to get a broad overview of the Data. After that we will analyze the trends over time for each country separately and see if we can find any significant relationships between higher education and unemployment rate.</p>
@@ -1210,9 +1223,9 @@ print(f"Estonia - Correlation (r): {r:.2f}, p-value: {p:.6f}")</code></pre>
 
               <p class="fs-5 mb-6">In Estonia there is no discernible relationship between education rate and unemployment rate (r = -0.02, p = 0.95).</p>
 
-              <h2>Hypothesis 3</h2>
+              <h2 id="hypothesis-3">Hypothesis 3</h2>
 
-              <p class="fs-5 mb-6"><strong>Hypothesis 3:</strong> Do countries with a higher GDP per capita have a lower unemployment rate?</p>
+              <p class="fs-5 mb-6"><strong>Hypothesis 3:</strong> EU countries with a higher GDP per capita have a lower unemployment rate?</p>
               <p class="fs-5 mb-6">We investigate whether there is a relationship between GDP per capita and the unemployment rate in EU countries.</p>
 
               <pre><code><strong># Calculate the correlation between GDP per capita and unemployment for each country over time</strong>
@@ -1429,7 +1442,7 @@ plt.show()</code></pre>
 
               <img src="../assets/images/portfolio/notebook-analysis/plot-11.png" alt="Luxembourg GDP and unemployment over time" class="img-fluid">
 
-              <h2>Critical assessment and limitations</h2>
+              <h2 id="critical-assessment">Critical assessment and limitations</h2>
               <h3>Correlation vs. causality:</h3>
               <p class="fs-5 mb-6">The demonstrated correlations do not prove causality. A rising GDP and a rising education rate can also be the result of a shared third factor (e.g., general technological progress over time), without one directly causing the other.</p>
               <h3>Temporal trends:</h3>
